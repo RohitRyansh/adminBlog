@@ -1,0 +1,203 @@
+body
+{
+    background-color: blueviolet;
+}
+h1
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.todo
+{
+    display: flex;
+    flex-direction: column;
+    margin:0 70px;
+    
+}
+.todo input
+{
+    padding: 20px;
+    border-radius: 10px;
+
+}
+.todo textarea
+{
+    border-radius: 10px;
+
+}
+.todo input:last-child
+{
+    width: 200px;
+    padding: 15px;
+    margin: 10px 0 0 40%;
+}
+.todo input:last-child:hover
+{
+    background-color: lightcoral;
+    color: #fff;  
+}
+.list
+{
+    text-align: center;
+}
+table
+{
+    width: 500px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 10px;
+}
+table th
+{
+    background-color: lime;
+    padding: 15px;
+    border-radius: 10px;
+
+}
+.table
+{
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+}
+button
+{
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+}
+button:hover
+{
+    background-color: lightcoral;
+    color: #fff;
+}
+.view
+{
+    margin: 10% 0 0 30%;
+    width: 600px;
+    border: 1px solid black;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 60vh;
+    position: relative;
+}
+.view h2
+{
+    text-align: center
+}
+.viewButtons
+{
+    position: absolute;
+    bottom: 0;
+}
+.viewButtons2
+{
+    bottom: 0;
+    position: absolute;
+    display: flex;
+}
+.viewButtons button
+{
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    margin-left:250px;
+}
+.viewButtons2 button
+{
+    padding: 10px;
+    margin-left: 40px;
+    background-color: black;
+    color: #fff;
+}
+.viewButtons button:hover
+{
+    background-color: lightcoral;
+    color: white;
+}
+.viewButtons2 button:hover
+{
+    background-color: lightcoral;
+    color: white;
+}
+.viewAdmin
+{
+    text-align: center;
+    border: 1px solid black;
+    width: 70%;
+    height: 90vh;
+    margin-left: 200px;
+    background-color: white;
+    border-radius: 20px;
+}
+.viewAdmin1
+{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 10px;
+}
+.viewAdmin1 button
+{
+    width: 200px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.viewAdmin1 :nth-child(7)
+{
+    text-align: center;
+   margin-top: 90px;
+}
+.lastSub
+{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 80px;
+    left: 40%;
+}
+.add
+{
+    width: 150px;
+    margin-left: 42%;
+    
+}
+.add:hover
+{
+    background-color: lightcoral;
+    color:#fff;
+}
+.message
+{
+    text-align: center;
+    position: absolute;
+    top: 13%;
+    color: #fff;
+    left: 42%;
+}
+.backButton
+{
+    margin-top: 20px;
+    padding: 50px;
+    width: 200px;
+    font-size: 15px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(36, 219, 36);
+    margin-bottom: 10px;
+}
+.blogButtons
+{
+    position: absolute;
+    bottom: 0;
+    left: 33%;
+}
+.blogButtons1
+{
+    position: absolute;
+    bottom: 9%;
+    left: 40%;
+}

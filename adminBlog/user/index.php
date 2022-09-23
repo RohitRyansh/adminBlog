@@ -1,0 +1,74 @@
+<?php
+include 'mainPage.php';
+if(isset($_POST['submit']))
+{
+$obj=new signupLogin($_POST);
+$obj->signUp();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style2.css">
+</head>
+<body>
+    <!-- heading -->
+    <header>
+        <nav>
+            <h1>
+                SIGNUP FORM
+            </h1>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <section>
+                <div class="signup">
+                    <div class="text2"> 
+                   <!-- sign up page -->
+                        <form action="index.php" method="post">
+                            <h2>
+                                Create a new account
+                            </h2>      
+                            <section class="name">
+                                <section>
+                                    <input type="text" name="NAME" id="name" placeholder="Name">
+                                    <?php
+                                    if(!empty($error['NAME']))
+                                    {
+                                        echo $error['NAME'];
+                                    }
+                                    ?>
+                                </section>
+                            </section>
+                                    <input type="EMAIL" name="EMAIL" id="EMAIL" placeholder="EMAIL">
+                                    <?php
+                                    if(!empty($error['EMAIL']))
+                                    {
+                                        echo $error['EMAIL'];
+                                    }
+                                    ?>
+                                    <input type="PASSWORD" name="PASSWORD" id="PASSWORD" placeholder="PASSWORD"> 
+                                    <?php
+                                    if(!empty($error['PASSWORD']))
+                                    {
+                                        echo $error['PASSWORD'];
+                                    }
+                                    $error=null;
+                                    ?>
+                            <input type="submit" value="sign up" name="submit" class="submit">
+                            <button><a href="../adminPanel/adminLogin.php">Admin Login</a></button>
+                            <a href="login.php">Already have an account</a>
+                            <hr>
+                        </form> 
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
