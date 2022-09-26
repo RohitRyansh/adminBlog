@@ -15,7 +15,7 @@ foreach(admin::$sql as $value1){
     }
 }
 echo "<div class=\"blogButtons\">";
-echo " <a href='viewBlog.php'><button>BACK</button></a>";
+echo " <a href='viewBlog.php?ID=".$_GET['ID']."'><button>BACK</button></a>";
 echo " <a href='adminLogout.php?ID=".$value1['ID']."'><button>LOGOUT</button></a>";
 echo"</div>";
 ?>

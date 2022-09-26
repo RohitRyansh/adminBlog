@@ -8,8 +8,16 @@
     </H2>
     <div class="table">
 <?php
-echo "<table cellspacing=5 border=1px > <tr>  <th>ID</th> <th>NAME</th> <th>EMAIL</th> <th>Delete</th>  </tr>"; 
+$id=$_GET['ID'];
+if($id==1)
+{
+    echo "<table cellspacing=5 border=1px > <tr>  <th>ID</th> <th>NAME</th> <th>EMAIL</th><th>Delete</th></tr>";
+}
+else
+{
+    echo "<table cellspacing=5 border=1px > <tr>  <th>ID</th> <th>NAME</th> <th>EMAIL</th></tr>";
+}
 include 'mainAdmin.php';
 $obj=new admin();
-$obj->viewUser("ADMIN");
+$obj->viewUser("ADMIN",$id);
 ?>

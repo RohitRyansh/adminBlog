@@ -7,16 +7,12 @@
 include 'mainPage.php';
 $obj=new signupLogin();
 db::$sql=db::$dbConn->query("SELECT * FROM BLOG");
-db::$sql=db::$sql->fetchAll();
+db::$sql=db::$sql->fetchAll(PDO::FETCH_ASSOC);
 foreach(db::$sql as $val)
 {
     if($val['STATUS']==1)
     {
-    echo "<a href='blogDescription.php?ID=".$val['ID']."'>{$val['TITLE']}<BR><BR>"; 
-    }
-    else
-    {
-    echo "<h2>No Blog Available</h2>"; 
+    echo " <a href='blogDescription.php?ID=".$val['ID']."&UID=".$_GET['ID']."'>{$val['TITLE']}<BR><BR>"; 
     }
 }
 ?>

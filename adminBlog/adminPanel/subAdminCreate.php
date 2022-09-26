@@ -30,7 +30,7 @@ $obj->createUser();
                 <div class="signup">
                     <div class="text2"> 
                    <!-- sign up page -->
-                        <form action="subAdminCreate.php" method="post">
+                        <form action="" method="post">
                             <h2>
                                 Create SUB ADMIN
                             </h2>      
@@ -58,10 +58,9 @@ $obj->createUser();
                                     {
                                         echo $error['PASSWORD'];
                                     }
-                                    $error=null;
                                     ?>
                                 <input type="submit" value="CREATE" name="createSubAdmin" class="submit">
-                                <a href="view.php"><input type="button" value="BACK" class="backButton"></a>
+                                <?php echo " <a href='view.php?ID=".$_GET['ID']."'><button>BACK</button></a>";?>
                             <hr>
                         </form> 
                     </div>

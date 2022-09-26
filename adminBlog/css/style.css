@@ -134,6 +134,16 @@ button:hover
     background-color: white;
     border-radius: 20px;
 }
+.viewAD
+{
+    text-align: center;
+    border: 1px solid black;
+    width: 70%;
+    height: 90vh;
+    margin-left: 400px;
+    background-color: white;
+    border-radius: 20px;
+}
 .viewAdmin1
 {
     display: flex;

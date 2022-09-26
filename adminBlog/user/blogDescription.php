@@ -15,14 +15,13 @@
         echo "<pre>{$val['DESCRIPTION']}</pre>";
     }    
  }
-
  ?>
  <div class="ViewButtons2">
-     <?php
+     <?php 
      echo "
- <td><a href='likeCount.php?ID=".$val['ID']."'><button>LIKE</button></a></td>
- <td><a href='../../adminPanel/subAdminView.php'><button>DISLIKE</button></a></td>
-<td><a href='userBlogView.php'><button>BACK</button></a></td>
+ <td><a href='likeCount.php?ID=".$_GET['ID']."&UID=".$_GET['UID']."'><button>LIKE</button></a></td>
+ <td><a href='dislikeCount.php?ID=".$_GET['ID']."&UID=".$_GET['UID']."'><button>DISLIKE</button></a></td>
+<td><a href='userBlogView.php?ID=".$_GET['ID']."&UID=".$_GET['UID']."'><button>BACK</button></a></td>
 <td><a href='logout.php?ID=".$val['ID']."'><button>LOGOUT</button></a></td>";
     ?>
 </div>

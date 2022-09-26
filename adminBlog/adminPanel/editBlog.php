@@ -35,7 +35,7 @@ if(isset($_POST['editBlog']))
                 admin::$sql[$key]=$_POST;
                 admin::$sql[$key]['ID']=$_POST['editBlog'];  
                 $obj->update($_GET['ID']);
-                header('location:viewBlog.php');
+                header('location:viewBlog.php?ID='.$_GET['ID']);
             }
         }
     }
@@ -72,8 +72,6 @@ if(isset($_POST['editBlog']))
                     }
                     ?>
                     <input type="submit"  name="editBlog" value="Save" class="add">
-                    <a href="viewBlog.php"><input type="button" value="BACK" class="backButton"></a>
-
                 </div>
             </form>
     </section> 

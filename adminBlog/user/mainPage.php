@@ -8,11 +8,8 @@ class db extends validation
         db::$dbHost="mysql:host=localhost;dbname=project1";  
         db::$dbUser="root";
         db::$dbPassword=""; 
-        db::$dbConn= new PDO(db::$dbHost,db::$dbUser,db::$dbPassword);
-            db::$sql=db::$dbConn->query("SELECT * FROM USERCREATE");
-        db::$sql=db::$sql->fetchAll(); 
+        db::$dbConn= new PDO(db::$dbHost,db::$dbUser,db::$dbPassword); 
     }
-
 }
 global $error;
 $error=array();
@@ -52,71 +49,87 @@ class signupLogin extends db
         if(!empty($this->data['submit1']))
         {   
             global $error;
-            $error=$this->Validate($this->data,null);
-            foreach(db::$sql as $val)
+            $error=$this->Validate($this->data,null);  
+            $email=$this->data['EMAILLOGIN'];
+            $password=$this->data['PASSWORDLOGIN'];
+            $check=db::$dbConn->query("SELECT ID,EMAIL,PASSWORD,STATUS FROM USERCREATE WHERE EMAIL ='$email' AND PASSWORD = '$password' ");
+            $check=$check->fetchAll(PDO::FETCH_ASSOC);
+            if($check)
             {
-                if($this->data['EMAILLOGIN']==$val['EMAIL'] && $this->data['PASSWORDLOGIN']==$val['PASSWORD'])
+                if(! $check[0]['STATUS'])
                 {
-                    if($val['STATUS']==0)
-                    {
-                        echo "<h3 class=\"message\">your status is unactive please contact to admin!</h3>";
-                    }
-                    else
-                    {
-                        header('location:userBlogView.php');
-                    }
+                    echo "<h3 class=\"message\">your status is unactive please contact to admin!</h3>";
                 }
                 else
                 {
-                    echo "<h3 class=\"message1\">Wrong ID and Password!</h3>";
+                    $id=$check[0]['ID'];
+                    $check=db::$dbConn->query("SELECT ID FROM USERCREATE WHERE EMAIL ='$email' AND PASSWORD = '$password' ");
+                    $check=db::$dbConn->exec("INSERT INTO LIKETABLE (ID,BLOGId,LIKES) VALUES ('$id',0,0)");
+                    header('location:userBlogView.php?ID='.$id);
                 }
-                
-            }     
+            }
+            else
+            {
+                echo "<h3 class=\"message1\">Wrong ID and Password!</h3>";
+            }
+                   
         }
         elseif(!empty($this->data['submit2']))
         {
             global $error;
             $error=$this->Validate($this->data,null);
-            $check;
-            db::$sql=db::$dbConn->query("SELECT * FROM ADMIN");
-            db::$sql=db::$sql->fetchAll();
+            $email=$this->data['EMAILLOGIN'];
+            $password=$this->data['PASSWORDLOGIN'];
+            $check=db::$dbConn->query("SELECT ID,EMAIL,PASSWORD FROM ADMIN WHERE EMAIL ='$email' AND PASSWORD = '$password' ");
+            $check=$check->fetchAll(PDO::FETCH_ASSOC);
             if(empty($error))
             {
-                foreach(db::$sql as $value)
+                if($check)
                 {
-                    if($this->data['EMAILLOGIN']==$value['EMAIL'] && $this->data['PASSWORDLOGIN']==$value['PASSWORD'])
-                    {
-                        header('location:../adminPanel/view.php');
-                    }
-                    else
-                    {
-                        echo "<h3 class=\"message1\">Wrong ID and Password!</h3>";
-                    }
+                    header('location:../adminPanel/view.php?ID='.$check[0]['ID']);
+
+                }
+                else
+                {
+                    echo "<h3 class=\"message1\">Wrong ID and Password!</h3>";
                 }
             }
         }
     }
-    function likeCount($id)
+    function likeCount($id,$uid)
     { 
-        $count=0;
-        db::$sql=db::$dbConn->query("SELECT * FROM BLOG");
-        db::$sql=db::$sql->fetchAll(); 
-        foreach(db::$sql as $val)
+        $likeCount=db::$dbConn->query("SELECT ID FROM BLOG WHERE ID= '$id'");
+        $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC); 
+        foreach($likeCount as $val)
         {
+            $sql1=db::$dbConn->query("SELECT * FROM LIKETABLE");
+            $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
+            $count=$sql1['LIKES'];
             if($val['ID']==$id)
             {
-            db::$sql=db::$dbConn->exec("INSERT INTO like (blogId,likeCount) values ('$id','$count')");
-            // db::$sql=db::$sql->fetchAll();
-            foreach(db::$sql as $val1)
-            {
-                print_r($val1);
-                die;
+            $count++;
+            db::$sql=db::$dbConn->exec("UPDATE LIKETABLE SET BLOGID='$id', LIKES='$count' WHERE ID='$uid'");
+            header("location:blogDescription.php?ID=".$val['ID']."&UID=".$uid);
             }
+        
+        }
+    }
+    function dislikeCount($id,$uid)
+    {
+        db::$sql=db::$dbConn->query("SELECT * FROM BLOG");
+        db::$sql=db::$sql->fetchAll(PDO::FETCH_ASSOC); 
+        foreach(db::$sql as $val)
+        {
+            $sql1=db::$dbConn->query("SELECT * FROM LIKETABLE");
+            $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
+            $count=$sql1['LIKES'];
+            if($val['ID']==$id)
+            {
+            $count--;
+            db::$sql=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE BLOGID='$id'");
+            header("location:blogDescription.php?ID=".$val['ID']."&UID=".$uid);
             }
         }
-        echo "hi";
-        die;
     }
 }
-
 ?>

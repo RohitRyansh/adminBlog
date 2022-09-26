@@ -21,12 +21,15 @@ class validation
             }
             elseif($key=='EMAIL')
             {
-                foreach($all as $key2=>$value2)
+                if(!empty($all))
                 {
-                    if($value['EMAIL']==$value2['EMAIL'])
+                    foreach($all as $key2=>$value2)
                     {
-                    $check[$key]="EMAIL already exist!";
-                    break;
+                        if($value1['EMAIL']==$value2['EMAIL'])
+                        {
+                        $check[$key]="EMAIL already exist!";
+                        break;
+                        }
                     }
                 }
                 if(!filter_var($value1, FILTER_VALIDATE_EMAIL))

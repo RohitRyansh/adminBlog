@@ -61,7 +61,8 @@ $obj->createUser();
                                     $error=null;
                                     ?>
                             <input type="submit" value="sign up" name="createUser" class="submit">
-                            <a href="view.php"><input type="button" value="BACK" class="backButton"></a>
+                            <?php echo "<a href='view.php?ID='>";?>
+                            <input type="button" value="BACK" class="backButton"></a>
                             <hr>
                         </form> 
                     </div>

@@ -1,7 +1,7 @@
 <?php
 include 'mainAdmin.php';
 $obj=new admin($_POST);
-$obj->createBlog();
+$obj->createUser();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +38,8 @@ $obj->createBlog();
                             }
                             ?>
                             <input type="submit" value="Add" name="createBlog" class="add"/>
-                            <a href="view.php"><input type="button" value="BACK" class="backButton"></a>
+                            <?php echo "<a href='view.php?ID='>";?>
+                            <input type="button" value="BACK" class="backButton"></a>
                         </div>
                     </form>
             </section>
