@@ -6,9 +6,9 @@
 <?php
 include 'mainPage.php';
 $obj=new signupLogin();
-db::$sql=db::$dbConn->query("SELECT * FROM BLOG");
-db::$sql=db::$sql->fetchAll(PDO::FETCH_ASSOC);
-foreach(db::$sql as $val)
+$sql1=db::$dbConn->query("SELECT * FROM BLOG");
+$sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
+foreach($sql1 as $val)
 {
     if($val['STATUS']==1)
     {

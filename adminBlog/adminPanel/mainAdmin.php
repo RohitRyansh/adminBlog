@@ -4,7 +4,6 @@ global $error;
 $error=array();
 class admin extends db
 {
-    public static $sql;
     public $adminData=array();
     function __construct($data=null)
     {  

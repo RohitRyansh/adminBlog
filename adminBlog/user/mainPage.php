@@ -1,19 +1,8 @@
 <?php
 include '../validation/validation.php';
-class db extends validation
-{
-    public static $dbConn,$dbHost,$dbPassword,$dbUser,$sql;
-    function __construct()
-    {
-        db::$dbHost="mysql:host=localhost;dbname=project1";  
-        db::$dbUser="root";
-        db::$dbPassword=""; 
-        db::$dbConn= new PDO(db::$dbHost,db::$dbUser,db::$dbPassword); 
-    }
-}
 global $error;
 $error=array();
-class signupLogin extends db
+class signupLogin extends validation
 {
     public $data=array();
     function __construct($data=null)

@@ -1,6 +1,7 @@
 
 <?php
-class validation
+include '../dbConnection/dbConnect.php';
+class validation extends db
 {
     function Validate($value,$all)
     {
