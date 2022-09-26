@@ -19,6 +19,6 @@ foreach($sql1 as $val)
 <div class="ViewButtons">
     <?php
     echo " <td><a href='logout.php?ID=".$val['ID']."'><button>LOGOUT</button></a></td>";
-        ?>
-    </div>
+    ?>
+</div>
 </div>

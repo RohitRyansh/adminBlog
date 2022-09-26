@@ -4,40 +4,33 @@ include 'mainAdmin.php';
 $byDefault=array();
 $idCount=0;
 $obj=new admin($_POST);
-admin::$sql=db::$dbConn->query("SELECT * FROM BLOG");
-admin::$sql=admin::$sql->fetchAll();
-foreach(admin::$sql as $key=>$value)
-{
-    if($value['ID']==$_GET['ID'])
+$id=$_GET['ID'];
+$sql=db::$dbConn->query("SELECT * FROM BLOG WHERE ID='$id'");
+$sql=$sql->fetchAll(PDO::FETCH_ASSOC);
+    if($sql)
     {
-        $byDefault=$value;
-        $idCount=0;   
-        break;
+        $byDefault=$sql;
+        $idCount=0;
     }
     else
     {
         $idCount++;
     } 
-}
 if(isset($_POST['editBlog']))
 {
-    $error=$obj->Validate($_POST,admin::$sql);
     if(!empty($error))
     {            
         header('location:editBlog.php?ID='.$_GET['ID']);
     }
     else
     {
-    foreach(admin::$sql as $key=>$value)
+        if($id)
         {
-            if($value['ID']==$_GET['ID'])
-            {     
-                admin::$sql[$key]=$_POST;
-                admin::$sql[$key]['ID']=$_POST['editBlog'];  
-                $obj->update($_GET['ID']);
-                header('location:viewBlog.php?ID='.$_GET['ID']);
-            }
-        }
+        $sql=$_POST;
+        $sql['ID']=$_POST['editBlog'];  
+        $obj->update($_GET['ID']);
+        header('location:viewBlog.php?ID='.$_GET['ID']);
+        }  
     }
 }
 ?>
@@ -56,7 +49,7 @@ if(isset($_POST['editBlog']))
                         Edit blog
                     </h2>
                     <label>TITLE</label>
-                    <input type="text" name="title" value=<?php echo isset($byDefault['TITLE'])?$byDefault['TITLE']:null?>>
+                    <input type="text" name="title" value=<?php echo isset($byDefault[0]['TITLE'])?$byDefault[0]['TITLE']:null?>>
                     <?php
                         if(!empty($error['title']))
                     {
@@ -64,7 +57,7 @@ if(isset($_POST['editBlog']))
                     }
                     ?>
                     <label>DESCRIPTION</label>
-                    <textarea name="description"  cols="50" rows="15" ><?php echo isset($byDefault['DESCRIPTION'])?$byDefault['DESCRIPTION']:null?></textarea>
+                    <textarea name="description"  cols="50" rows="15" ><?php echo isset($byDefault[0]['DESCRIPTION'])?$byDefault[0]['DESCRIPTION']:null?></textarea>
                     <?php
                     if(!empty($error['description']))
                     {
