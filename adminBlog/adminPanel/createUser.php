@@ -3,7 +3,7 @@ include 'mainAdmin.php';
 if(isset($_POST['createUser']))
 {
 $obj=new admin($_POST);
-$obj->createUser();
+$obj->createUser("USERCREATE");
 }
 ?>
 <!DOCTYPE html>

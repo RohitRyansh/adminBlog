@@ -22,21 +22,15 @@ class validation extends db
             }
             elseif($key=='EMAIL')
             {
-                if(!empty($all))
+                if($all)
                 {
-                    foreach($all as $key2=>$value2)
-                    {
-                        if($value1['EMAIL']==$value2['EMAIL'])
-                        {
-                        $check[$key]="EMAIL already exist!";
-                        break;
-                        }
-                    }
+                    $check[$key]="EMAIL already exist!";
+                    break;     
                 }
+    
                 if(!filter_var($value1, FILTER_VALIDATE_EMAIL))
                 {
                     $check[$key]="Please enter a valid EMAIL !";
-
                 }
             }
             elseif($key=='PASSWORD')

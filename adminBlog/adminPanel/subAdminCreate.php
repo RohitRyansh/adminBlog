@@ -3,7 +3,7 @@ include 'mainAdmin.php';
 if(isset($_POST['createSubAdmin']))
 {
 $obj=new admin($_POST);
-$obj->createUser(); 
+$obj->createUser("ADMIN"); 
 }
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,8 @@ $obj->createUser();
                                     }
                                     ?>
                                 <input type="submit" value="CREATE" name="createSubAdmin" class="submit">
-                                <?php echo " <a href='view.php?ID=".$_GET['ID']."'><button>BACK</button></a>";?>
+                                <?php echo "<a href='view.php?ID='>";?>
+                            <input type="button" value="BACK" class="backButton"></a>
                             <hr>
                         </form> 
                     </div>

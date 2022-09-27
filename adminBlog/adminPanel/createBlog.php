@@ -1,7 +1,7 @@
 <?php
 include 'mainAdmin.php';
 $obj=new admin($_POST);
-$obj->createUser();
+$obj->createUser("BLOG");
 ?>
 <!DOCTYPE html>
 <html lang="en">

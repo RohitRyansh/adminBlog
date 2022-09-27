@@ -2,7 +2,7 @@
 include '../user/mainPage.php';
 global $error;
 $error=array();
-class admin extends db
+class admin extends validation
 {
     public $adminData=array();
     function __construct($data=null)
@@ -10,46 +10,41 @@ class admin extends db
         parent::__construct();
         $this->adminData=$data; 
     }
-    function createUser()
+    function createUser($table)
     {
-        if(!empty($this->adminData['createUser']))
+        if($table=='BLOG')
         {
-            global $error;
-            $error=$this->Validate($this->adminData,admin::$sql);
-            if(empty($error))
+            if(isset($this->adminData['createBlog']))
             {
-                $name=$this->adminData['NAME'];
-                $email=$this->adminData['EMAIL'];
-                $pass=$this->adminData['PASSWORD'];
-                admin::$sql=db::$dbConn->exec("INSERT INTO USERCREATE (NAME,EMAIL,PASSWORD) VALUES ('$name','$email','$pass')");
-                echo "<h3 class=\"message\">Account Created Successfully!</h3>";   
-            }
-        }
-        if(!empty($this->adminData['createSubAdmin']))
-        {
-            global $error;
-            $error=$this->Validate($this->adminData,admin::$sql);
-            if(empty($error))
-            {
-                $name=$this->adminData['NAME'];
-                $email=$this->adminData['EMAIL'];
-                $pass=$this->adminData['PASSWORD'];
-                admin::$sql=db::$dbConn->exec("INSERT INTO ADMIN (NAME,EMAIL,PASSWORD) VALUES ('$name','$email','$pass')");
-                echo "<h3 class=\"message\">Account Created Successfully!</h3>";   
-            }
-        }
-        if(!empty($this->adminData['createBlog']))
-        {
-            global $error;
-            $error=$this->Validate($this->adminData,admin::$sql);
-            if(empty($error))
-            { 
-                $title=$this->adminData['title'];
-                $description=$this->adminData['description'];
-                admin::$sql=db::$dbConn->exec("INSERT INTO BLOG (TITLE,DESCRIPTION) VALUES ('$title','$description')");
-                echo "<h2 class=\"message\">Blog Created Successfully!</h2>";   
+                global $error;
+                $error=$this->Validate($this->adminData,null);
+                if(empty($error))
+                { 
+                    $title=$this->adminData['title'];
+                    $description=$this->adminData['description'];
+                    $check=db::$dbConn->exec("INSERT INTO $table (TITLE,DESCRIPTION) VALUES ('$title','$description')");
+                    echo "<h2 class=\"message\">Blog Created Successfully!</h2>";   
+                }
             }
         } 
+        else 
+        {
+            if(isset($this->adminData['createUser']) || ($this->adminData['createSubAdmin']))
+            {
+                global $error;
+                $email=$this->adminData['EMAIL'];
+                $check=db::$dbConn->query("SELECT EMAIL FROM $table WHERE EMAIL ='$email'");
+                $check=$check->fetchAll(PDO::FETCH_ASSOC);
+                $error=$this->Validate($this->adminData,$check);
+                if(empty($error))
+                {
+                    $name=$this->adminData['NAME'];
+                    $pass=$this->adminData['PASSWORD'];
+                    $check=db::$dbConn->exec("INSERT INTO $table (NAME,EMAIL,PASSWORD) VALUES ('$name','$email','$pass')");
+                    echo "<h3 class=\"message\">Account Created Successfully!</h3>";   
+                }
+            }
+        }
     }
     function viewUser($table,$id)
     {
@@ -113,14 +108,14 @@ class admin extends db
     }
     function delete($table,$id)
     {
-        admin::$sql=db::$dbConn->exec("DELETE FROM $table WHERE ID='$id'");
+        $check=db::$dbConn->exec("DELETE FROM $table WHERE ID='$id'");
         header('location:subAdminView.php?ID='.'1');
     }
     function update($id)
     {
         $title=$this->adminData['title'];
         $description=$this->adminData['description'];
-        admin::$sql=db::$dbConn->exec("UPDATE BLOG SET TITLE='$title', DESCRIPTION='$description' WHERE ID='$id'");   
+        $check=db::$dbConn->exec("UPDATE BLOG SET TITLE='$title', DESCRIPTION='$description' WHERE ID='$id'");   
     }
     function status($table,$id)
     {
