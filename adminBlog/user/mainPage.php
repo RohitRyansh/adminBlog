@@ -100,35 +100,28 @@ class signupLogin extends validation
     { 
         $likeCount=db::$dbConn->query("SELECT ID FROM BLOG WHERE ID= '$id'");
         $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC); 
-        foreach($likeCount as $val)
+        $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE BLOGId='$id'");
+        $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
+        $count=$sql1['LIKES'];
+        if($likeCount)
         {
-            $sql1=db::$dbConn->query("SELECT * FROM LIKETABLE");
-            $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
-            $count=$sql1['LIKES'];
-            if($val['ID']==$id)
-            {
-            $count++;
-            $sql1=db::$dbConn->exec("UPDATE LIKETABLE SET BLOGID='$id', LIKES='$count' WHERE ID='$uid'");
-            header("location:blogDescription.php?ID=".$val['ID']."&UID=".$uid);
-            }
-        
+        $count++;
+        $sql1=db::$dbConn->exec("UPDATE LIKETABLE SET BLOGID='$id', LIKES='$count' WHERE ID='$uid'");
+        header("location:blogDescription.php?ID=".$id."&UID=".$uid);
         }
     }
     function dislikeCount($id,$uid)
     {
-        $sql1=db::$dbConn->query("SELECT * FROM BLOG");
-        $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC); 
-        foreach($sql1 as $val)
+        $likeCount=db::$dbConn->query("SELECT ID FROM BLOG WHERE ID='$id'");
+        $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC); 
+        $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE BLOGID='$id'");
+        $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
+        $count=$sql1['LIKES'];
+        if($likeCount)
         {
-            $sql1=db::$dbConn->query("SELECT * FROM LIKETABLE");
-            $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
-            $count=$sql1['LIKES'];
-            if($val['ID']==$id)
-            {
-            $count--;
-            $sql1=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE BLOGID='$id'");
-            header("location:blogDescription.php?ID=".$val['ID']."&UID=".$uid);
-            }
+        $count--;
+        $sql1=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE BLOGID='$id'");
+        header("location:blogDescription.php?ID=".$id."&UID=".$uid);
         }
     }
 }
