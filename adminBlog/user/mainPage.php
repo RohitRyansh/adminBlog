@@ -118,7 +118,7 @@ class signupLogin extends validation
     {
         $sql1=db::$dbConn->query("SELECT * FROM BLOG");
         $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC); 
-        foreach(db::$sql as $val)
+        foreach($sql1 as $val)
         {
             $sql1=db::$dbConn->query("SELECT * FROM LIKETABLE");
             $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);

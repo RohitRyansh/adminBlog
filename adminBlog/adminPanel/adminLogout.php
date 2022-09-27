@@ -2,7 +2,7 @@
 include 'mainAdmin.php';
 if(isset($_GET['ID']))
 {
-    admin::$sql=null;
+    $sql=null;
     header('location:adminLogin.php');
 }
 ?>

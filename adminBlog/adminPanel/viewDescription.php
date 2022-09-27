@@ -6,16 +6,15 @@
 <?php
 include 'mainAdmin.php';
 $obj=new admin();
-admin::$sql=db::$dbConn->query("SELECT * FROM BLOG");
-admin::$sql=admin::$sql->fetchAll();
-foreach(admin::$sql as $value1){
-    if($value1['ID']==$_GET['ID'])
-    {
-        echo $value1['DESCRIPTION'];
-    }
+$id=$_GET['ID'];
+$sql=db::$dbConn->query("SELECT DESCRIPTION FROM BLOG WHERE ID='$id'");
+$sql=$sql->fetchAll(PDO::FETCH_ASSOC);
+if($sql)
+{
+    echo $sql[0]['DESCRIPTION'];
 }
 echo "<div class=\"blogButtons\">";
-echo " <a href='viewBlog.php?ID=".$_GET['ID']."'><button>BACK</button></a>";
-echo " <a href='adminLogout.php?ID=".$value1['ID']."'><button>LOGOUT</button></a>";
+echo " <a href='viewBlog.php?ID=".$id."'><button>BACK</button></a>";
+echo " <a href='adminLogout.php?ID=".$id."'><button>LOGOUT</button></a>";
 echo"</div>";
 ?>
