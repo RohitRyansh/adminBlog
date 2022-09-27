@@ -64,8 +64,7 @@ class signupLogin extends validation
                 {
                     $id=$check[0]['ID'];
                     $check=db::$dbConn->query("SELECT ID FROM USERCREATE WHERE EMAIL ='$email' AND PASSWORD = '$password' ");
-                    $check=db::$dbConn->exec("INSERT INTO LIKETABLE (ID,BLOGId,LIKES) VALUES ('$id',0,0)");
-                    header('location:userBlogView.php?ID='.$id);
+                    header('location:userBlogView.php?UID='.$id);
                 }
             }
             else
@@ -80,7 +79,7 @@ class signupLogin extends validation
             $error=$this->Validate($this->data,null);
             $email=$this->data['EMAILLOGIN'];
             $password=$this->data['PASSWORDLOGIN'];
-            $check=db::$dbConn->query("SELECT ID,EMAIL,PASSWORD FROM ADMIN WHERE EMAIL ='$email' AND PASSWORD = '$password' ");
+            $check=db::$dbConn->query("SELECT ID,EMAIL,PASSWORD FROM ADMIN WHERE EMAIL ='$email' AND PASSWORD = '$password'");
             $check=$check->fetchAll(PDO::FETCH_ASSOC);
             if(empty($error))
             {
@@ -98,31 +97,52 @@ class signupLogin extends validation
     }
     function likeCount($id,$uid)
     { 
-        $likeCount=db::$dbConn->query("SELECT ID FROM BLOG WHERE ID= '$id'");
-        $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC); 
         $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE BLOGId='$id'");
         $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
-        $count=$sql1['LIKES'];
-        if($likeCount)
+        $userID=db::$dbConn->query("SELECT ID FROM USERCREATE WHERE ID='$uid'");
+        $userID=$userID->fetchAll(PDO::FETCH_ASSOC);
+        $count=0;
+        if($userID)
         {
-        $count++;
-        $sql1=db::$dbConn->exec("UPDATE LIKETABLE SET BLOGID='$id', LIKES='$count' WHERE ID='$uid'");
-        header("location:blogDescription.php?ID=".$id."&UID=".$uid);
+            if($sql1)
+            {
+                $count=$sql1[0]['LIKES'];
+                $count++;
+                $check=db::$dbConn->query("INSERT INTO LIKETABLE (ID,BLOGID,LIKES) VALUES('$uid','$id','$count')");
+            }
+            else
+            {
+                $count=$sql1[0]['LIKES'];
+                $count++;
+                $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE ID='$uid' AND BLOGID='$id'");
+            }
+            header("location:blogDescription.php?ID=".$id."&UID=".$uid);
         }
     }
+    
     function dislikeCount($id,$uid)
     {
-        $likeCount=db::$dbConn->query("SELECT ID FROM BLOG WHERE ID='$id'");
-        $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC); 
         $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE BLOGID='$id'");
         $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
-        $count=$sql1['LIKES'];
-        if($likeCount)
+        $userID=db::$dbConn->query("SELECT ID FROM USERCREATE WHERE ID='$uid'");
+        $userID=$userID->fetchAll(PDO::FETCH_ASSOC);
+        if($userID)
         {
-        $count--;
-        $sql1=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE BLOGID='$id'");
-        header("location:blogDescription.php?ID=".$id."&UID=".$uid);
-        }
+            if($sql1)
+            {
+                $count=$sql1[0]['LIKES'];
+                $count--;
+                if($count<0)
+                {
+                    $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=0 WHERE ID='$uid' AND BLOGID='$id'");
+                }
+                else
+                {
+                    $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE ID='$uid' AND BLOGID='$id'");
+                }
+                header("location:blogDescription.php?ID=".$id."&UID=".$uid); 
+            }
+        } 
     }
 }
 ?>

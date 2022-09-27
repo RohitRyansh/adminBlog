@@ -12,7 +12,7 @@
     {
         if($val)
         {
-        echo " <a href='blogDescription.php?ID=".$val['ID']."&UID=".$_GET['ID']."'>{$val['TITLE']}<BR><BR>"; 
+        echo " <a href='blogDescription.php?ID=".$val['ID']."&UID=".$_GET['UID']."'>{$val['TITLE']}<BR><BR>"; 
         }
     }
 ?>
