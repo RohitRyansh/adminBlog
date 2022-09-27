@@ -29,8 +29,17 @@ class signupLogin extends validation
                 {
                     $name=$this->data['NAME'];
                     $pass=$this->data['PASSWORD'];
+                    $check=db::$dbConn->query("SELECT EMAIL FROM ADMIN WHERE EMAIL='$email'");
+                    $check=$check->fetchAll(PDO::FETCH_ASSOC);
+                    if($check)
+                    {
+                        echo "<h3 class=\"message\">This email is alredy used by admin!</h3>";
+                    }
+                    else
+                    {
                     $check=db::$dbConn->exec("INSERT INTO USERCREATE (NAME,EMAIL,PASSWORD) VALUES ('$name','$email','$pass')");
                     echo "<h3 class=\"message\">Account Created Successfully!</h3>";
+                    }
                 }
             }
         }

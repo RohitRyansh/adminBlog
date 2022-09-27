@@ -40,8 +40,17 @@ class admin extends validation
                 {
                     $name=$this->adminData['NAME'];
                     $pass=$this->adminData['PASSWORD'];
+                    $check=db::$dbConn->query("SELECT EMAIL FROM ADMIN WHERE EMAIL='$email'");
+                    $check=$check->fetchAll(PDO::FETCH_ASSOC);
+                    if($check)
+                    {
+                        echo "<h3 class=\"message\">This email is already used!</h3>";
+                    }
+                    else
+                    {
                     $check=db::$dbConn->exec("INSERT INTO $table (NAME,EMAIL,PASSWORD) VALUES ('$name','$email','$pass')");
-                    echo "<h3 class=\"message\">Account Created Successfully!</h3>";   
+                    echo "<h3 class=\"message\">Account Created Successfully!</h3>";  
+                    } 
                 }
             }
         }
