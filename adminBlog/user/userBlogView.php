@@ -1,3 +1,11 @@
+<?php
+include 'mainPage.php';
+$obj1=new validation();
+if($obj1->userLoggedinValidate()==false)
+{
+    header('location:Login.php');
+}
+?>
 <link rel="stylesheet" href="../css/style.css">
 <div class="view">
     <h2>
@@ -18,7 +26,7 @@
 ?>
     <div class="ViewButtons">
         <?php
-        echo " <td><a href='logout.php?ID=".$val['ID']."'><button>LOGOUT</button></a></td>";
+        echo " <td><a href='logout.php?UID=".$_GET['UID']."'><button>LOGOUT</button></a></td>";
         ?>
     </div>
 </div>

@@ -1,9 +1,9 @@
 <?php
 include 'mainAdmin.php';
-if(isset($_POST['createUser']))
+if(isset($_POST['create']))
 {
 $obj=new admin($_POST);
-$obj->createUser("USERCREATE");
+$obj->create("USERCREATE");
 }
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $obj->createUser("USERCREATE");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CREATE USER</title>
     <link rel="stylesheet" href="../css/style2.css">
 </head>
 <body>
@@ -30,7 +30,7 @@ $obj->createUser("USERCREATE");
                 <div class="signup">
                     <div class="text2"> 
                    <!-- sign up page -->
-                        <form action="createUser.php" method="post">
+                        <form action="" method="post">
                             <h2>
                                 Create a new User
                             </h2>      
@@ -60,8 +60,8 @@ $obj->createUser("USERCREATE");
                                     }
                                     $error=null;
                                     ?>
-                            <input type="submit" value="sign up" name="createUser" class="submit">
-                            <?php echo "<a href='view.php?ID='>";?>
+                            <input type="submit" value="create" name="create" class="submit">
+                            <?php echo "<a href='view.php?UID=".$_GET['UID']."'>";?>
                             <input type="button" value="BACK" class="backButton"></a>
                             <hr>
                         </form> 

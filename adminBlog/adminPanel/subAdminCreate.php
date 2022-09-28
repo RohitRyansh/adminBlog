@@ -1,9 +1,9 @@
 <?php
 include 'mainAdmin.php';
-if(isset($_POST['createSubAdmin']))
+if(isset($_POST['create']))
 {
 $obj=new admin($_POST);
-$obj->createUser("ADMIN"); 
+$obj->create("ADMIN"); 
 }
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $obj->createUser("ADMIN");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SUB ADMIN CREATE</title>
     <link rel="stylesheet" href="../css/style2.css">
 </head>
 <body>
@@ -59,8 +59,8 @@ $obj->createUser("ADMIN");
                                         echo $error['PASSWORD'];
                                     }
                                     ?>
-                                <input type="submit" value="CREATE" name="createSubAdmin" class="submit">
-                                <?php echo "<a href='view.php?ID='>";?>
+                                <input type="submit" value="CREATE" name="create" class="submit">
+                                <?php echo "<a href='view.php?UID=".$_GET['UID']."'>";?>
                             <input type="button" value="BACK" class="backButton"></a>
                             <hr>
                         </form> 

@@ -10,7 +10,7 @@ class admin extends validation
         parent::__construct();
         $this->adminData=$data; 
     }
-    function createUser($table)
+    function create($table)
     {
         if($table=='BLOG')
         {
@@ -29,7 +29,7 @@ class admin extends validation
         } 
         else 
         {
-            if(isset($this->adminData['createUser']) || ($this->adminData['createSubAdmin']))
+            if(isset($this->adminData['create']))
             {
                 global $error;
                 $email=$this->adminData['EMAIL'];
@@ -55,7 +55,7 @@ class admin extends validation
             }
         }
     }
-    function viewUser($table,$id)
+    function view($table,$id)
     {
         $check=db::$dbConn->query("SELECT * FROM $table");
         $check=$check->fetchAll(PDO::FETCH_ASSOC);
@@ -66,16 +66,16 @@ class admin extends validation
                 echo" <div class=\"table\">";
                 echo "<tr>";
                 echo "<td>{$val['ID']}</td><td>{$val['TITLE']}</td>";
-                echo " <td><a href=\"viewDescription.php?ID=".$val['ID']."\"><button>View</button></a></td>
-                <td><a href=\"editBlog.php?ID=".$val['ID']."\"><button>Edit</button></a></td>
-                <td><a href=\"deleteBlog.php?ID=".$val['ID']."\"><button>Delete</button></a></td>";
+                echo " <td><a href=\"viewDescription.php?ID=".$val['ID']."&UID=".$id."\"><button>View</button></a></td>
+                <td><a href=\"editBlog.php?ID=".$val['ID']."&UID=".$id."\"><button>Edit</button></a></td>
+                <td><a href=\"deleteBlog.php?ID=".$val['ID']."&UID=".$id."\"><button>Delete</button></a></td>";
                 if($val['STATUS'])
                 {
-                    echo "<td><a href='blogStatus.php?ID=".$val['ID']."'><button>Active</button></a></td>";
+                    echo "<td><a href=\"blogStatus.php?ID=".$val['ID']."&UID=".$id."\"><button>Active</button></a></td>";
                 }
                 else
                 {
-                    echo "<td><a href='blogStatus.php?ID=".$val['ID']."'><button>Deactive</button></a></td>";
+                    echo "<td><a href=\"blogStatus.php?ID=".$val['ID']."&UID=".$id."\"><button>Deactive</button></a></td>";
                 }  
                 echo "</tr></div>";
             }
@@ -88,43 +88,56 @@ class admin extends validation
                 {
                     if($id==1)
                     {
-                        echo "<td><a href=\"deleteSubAdmin.php?ID=".$val['ID']."\"><button>Delete</button></a></td>";
+                        echo "<td><a href=\"deleteSubAdmin.php?ID=".$val['ID']."&UID=".$id."\"><button>Delete</button></a></td>";
                     }
                 }
                 else
                 {
-                    echo "<td><a href=\"deleteUser.php?ID=".$val['ID']."\"><button>Delete</button></a></td>";
+                    echo "<td><a href=\"deleteUser.php?ID=".$val['ID']."&UID=".$id."\"><button>Delete</button></a></td>";
 
                 }
                 if(isset($val['STATUS']))
                 {
                     if($val['STATUS'])
                     {
-                        echo "<td><a href='status.php?ID=".$val['ID']."'><button>Active</button></a></td>";
+                        echo "<td><a href=\"status.php?ID=".$val['ID']."&UID=".$id."\"><button>Active</button></a></td>";
                     }
                     else
                     {
-                        echo "<td><a href='status.php?ID=".$val['ID']."'><button>Deactive</button></a></td>";
+                        echo "<td><a href=\"status.php?ID=".$val['ID']."&UID=".$id."\"><button>Deactive</button></a></td>";
                     }
                 }
             }
             echo "<div class=\"blogButtons1\">";
-            echo " <a href='view.php?ID=".$id."'><button>BACK</button></a>";
-            echo " <a href='adminLogout.php?ID=".$id."'><button>LOGOUT</button></a>";
+            echo " <a href='view.php?UID=".$id."'><button>BACK</button></a>";
+            echo " <a href='adminLogout.php?UID=".$id."'><button>LOGOUT</button></a>";
             echo"</div>";
         }       
   
     }
     function delete($table,$id)
     {
+        if(isset($id))
+        {
         $check=db::$dbConn->exec("DELETE FROM $table WHERE ID='$id'");
-        header('location:subAdminView.php?ID='.'1');
+        }
     }
-    function update($id)
+    function update($id,$uid)
     {
-        $title=$this->adminData['title'];
-        $description=$this->adminData['description'];
-        $check=db::$dbConn->exec("UPDATE BLOG SET TITLE='$title', DESCRIPTION='$description' WHERE ID='$id'");   
+        global $error;
+        $error=$this->Validate($this->adminData,null);
+        if(empty($error))
+        {
+            if($id)
+            {
+            $sql=$this->adminData;
+            $sql['ID']=$this->adminData['editBlog'];
+            $title=$this->adminData['title'];
+            $description=$this->adminData['description'];
+            $check=db::$dbConn->exec("UPDATE BLOG SET TITLE='$title', DESCRIPTION='$description' WHERE ID='$id'");   
+            header('location:viewBlog.php?UID='.$uid);
+            }  
+        }
     }
     function status($table,$id)
     {

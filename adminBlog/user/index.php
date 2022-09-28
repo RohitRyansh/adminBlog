@@ -1,5 +1,6 @@
 <?php
 include 'mainPage.php';
+// validation::loggedinValidate();
 if(isset($_POST['submit']))
 {
 $obj=new signupLogin($_POST);
@@ -12,7 +13,7 @@ $obj->signUp();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SIGN IN PAGE</title>
     <link rel="stylesheet" href="../css/style2.css">
 </head>
 <body>
@@ -61,8 +62,8 @@ $obj->signUp();
                                     $error=null;
                                     ?>
                             <input type="submit" value="sign up" name="submit" class="submit">
-                            <button><a href="../adminPanel/adminLogin.php">Admin Login</a></button>
-                            <a href="login.php">Already have an account</a>
+                            <a href="login.php"><input type="button" value="LOGIN" name="submit" class="submit">
+                             </a>
                             <hr>
                         </form> 
                     </div>

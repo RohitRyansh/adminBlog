@@ -7,5 +7,5 @@
 include 'mainAdmin.php';
 echo "<table cellspacing=5 border=1px > <tr>  <th>ID</th> <th>TITLE</th> <th>View</th> <th>Edit</th> <th>Delete</th> <th>Status</th></tr>"; 
 $obj=new admin();
-$obj->viewUser("BLOG",$_GET['ID']);
+$obj->view("BLOG",$_GET['UID']);
 ?>

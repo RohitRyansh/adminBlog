@@ -1,3 +1,11 @@
+<?php
+include '../user/mainpage.php';
+$obj1=new validation();
+if($obj1->adminLoggedinValidate()==false)
+{
+    header('location:adminLogin.php');
+}
+?>
 <link rel="stylesheet" href="../css/style.css">
 <div class="viewAdmin">
     <h1>
@@ -8,17 +16,16 @@
     </H2>
     <div class="viewAdmin1">
 <?php
-include '../user/mainpage.php';
 $obj=new signupLogin();
-$id=$_GET['ID'];
+$id=$_GET['UID'];
 echo "
-    <a href='subAdminCreate.php?ID=".$id."'><button>CREATE SUB ADMIN</button>
-    <a href='subAdminView.php?ID=".$id."'><button>VIEW SUB ADMIN</button></a>
-    <a href='createUser.php?ID=".$id."'><button>CREATE USER</button></a>
-    <a href='viewUser.php?ID=".$id."'><button>VIEW</button></a>
-    <a href='createBlog.php?ID=".$id."'><button>CREATE BLOG</button></a>
-    <a href='viewBlog.php?ID=".$id."'><button>VIEW BLOG</button></a>
-    <a href='adminLogin.php?ID=".$id."'><button>LOGOUT</button></a>";
+    <a href='subAdminCreate.php?UID=".$id."'><button>CREATE SUB ADMIN</button>
+    <a href='subAdminView.php?UID=".$id."'><button>VIEW SUB ADMIN</button></a>
+    <a href='createUser.php?UID=".$id."'><button>CREATE USER</button></a>
+    <a href='viewUser.php?UID=".$id."'><button>VIEW</button></a>
+    <a href='createBlog.php?UID=".$id."'><button>CREATE BLOG</button></a>
+    <a href='viewBlog.php?UID=".$id."'><button>VIEW BLOG</button></a>
+    <a href='adminLogin.php?UID=".$id."'><button>LOGOUT</button></a>";
 ?>
 </div>
 </div>

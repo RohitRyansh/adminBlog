@@ -1,8 +1,8 @@
 <?php
 include '../user/mainPage.php';
-if(isset($_POST['submit2'])){
+if(isset($_POST['submit'])){
     $obj=new signupLogin($_POST);
-    $obj->login();
+    $obj->login("ADMIN");
 }
 ?>
 <!DOCTYPE html>
@@ -34,22 +34,22 @@ if(isset($_POST['submit2'])){
                         <h3>
                             Log in to Uworld
                         </h3>  
-                            <input type="email" name="EMAILLOGIN" placeholder="Email">
+                            <input type="email" name="EMAIL" placeholder="Email">
                             <?php
-                                if(!empty($error['EMAILLOGIN']))
+                                if(!empty($error['EMAIL']))
                                 {
-                                    echo $error['EMAILLOGIN'];
+                                    echo $error['EMAIL'];
                                 }
                             ?>
-                            <input type="password" name="PASSWORDLOGIN" placeholder="Password">
+                            <input type="password" name="PASSWORD" placeholder="Password">
                             <?php
-                                if(!empty($error['PASSWORDLOGIN']))
+                                if(!empty($error['PASSWORD']))
                                 {
-                                    echo $error['PASSWORDLOGIN'];
+                                    echo $error['PASSWORD'];
                                 }
                                 $error=NULL;
                             ?>
-                            <input type="submit" value="login" name="submit2">
+                            <input type="submit" value="login" name="submit">
                             <a href="../user/index.php">not Admin?</a>
                         </form>
                     </div>

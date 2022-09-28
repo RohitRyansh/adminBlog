@@ -14,7 +14,7 @@ if($sql)
     echo $sql[0]['DESCRIPTION'];
 }
 echo "<div class=\"blogButtons\">";
-echo " <a href='viewBlog.php?ID=".$id."'><button>BACK</button></a>";
-echo " <a href='adminLogout.php?ID=".$id."'><button>LOGOUT</button></a>";
+echo " <a href='viewBlog.php?UID=".$_GET['UID']."'><button>BACK</button></a>";
+echo " <a href='adminLogout.php?UID=".$_GET['UID']."'><button>LOGOUT</button></a>";
 echo"</div>";
 ?>

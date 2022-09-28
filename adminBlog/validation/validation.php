@@ -3,6 +3,43 @@
 include '../dbConnection/dbConnect.php';
 class validation extends db
 {
+    function adminLoggedinValidate()
+    {
+        if(isset($_SESSION['adminLogged']))
+        {
+            if($_SESSION['adminLogged']==true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    } 
+    function userLoggedinValidate()
+    {
+        if(isset($_SESSION['userLogged']))
+        {
+            if($_SESSION['userLogged']==true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }       
+
     function Validate($value,$all)
     {
         $check= array();

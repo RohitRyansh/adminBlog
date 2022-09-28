@@ -1,7 +1,7 @@
 <?php
 include 'mainAdmin.php';
 $obj=new admin($_POST);
-$obj->createUser("BLOG");
+$obj->create("BLOG");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,14 @@ $obj->createUser("BLOG");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Add Page</title>
+    <title>CREATE BLOG</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <main>
         <article>
             <section class="frontpage">
-                    <form action="createblog.php" method="post">
+                    <form action="" method="post">
                         <div class="todo">
                             <h1>
                                 Welcome
@@ -37,8 +37,8 @@ $obj->createUser("BLOG");
                                 echo $error['description'];
                             }
                             ?>
-                            <input type="submit" value="Add" name="createBlog" class="add"/>
-                            <?php echo "<a href='view.php?ID='>";?>
+                            <input type="submit" value="create" name="createBlog" class="add"/>
+                            <?php echo "<a href='view.php?UID=".$_GET['UID']."'>";?>
                             <input type="button" value="BACK" class="backButton"></a>
                         </div>
                     </form>

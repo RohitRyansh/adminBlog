@@ -2,37 +2,20 @@
 <?php
 include 'mainAdmin.php';
 $byDefault=array();
-$idCount=0;
-$obj=new admin($_POST);
+$obj=new admin();
 $id=$_GET['ID'];
-$sql=db::$dbConn->query("SELECT * FROM BLOG WHERE ID='$id'");
-$sql=$sql->fetchAll(PDO::FETCH_ASSOC);
-    if($sql)
-    {
-        $byDefault=$sql;
-        $idCount=0;
-    }
-    else
-    {
-        $idCount++;
-    } 
 if(isset($_POST['editBlog']))
 {
-    if(!empty($error))
-    {            
-        header('location:editBlog.php?ID='.$_GET['ID']);
-    }
-    else
-    {
-        if($id)
-        {
-        $sql=$_POST;
-        $sql['ID']=$_POST['editBlog'];  
-        $obj->update($_GET['ID']);
-        header('location:viewBlog.php?ID='.$_GET['ID']);
-        }  
-    }
+$obj=new admin($_POST);
+$obj->update($id,$_GET['UID']);
 }
+$sql=db::$dbConn->query("SELECT * FROM BLOG WHERE ID='$id'");
+$sql=$sql->fetchAll(PDO::FETCH_ASSOC);
+if($sql)
+{
+    $byDefault=$sql;
+}
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +26,7 @@ if(isset($_POST['editBlog']))
 <body>
 <main>
     <section class="frontpage">
-            <form action="editBlog.php?ID=<?php echo $_GET['ID'];?>" method="post">
+            <form action="" method="post">
                 <div class="todo">
                     <h2>
                         Edit blog

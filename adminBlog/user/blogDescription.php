@@ -20,7 +20,7 @@
         <td><a href='likeCount.php?ID=".$sql1[0]['ID']."&UID=".$_GET['UID']."'><button>LIKE</button></a></td>
         <td><a href='dislikeCount.php?ID=".$sql1[0]['ID']."&UID=".$_GET['UID']."'><button>DISLIKE</button></a></td>
         <td><a href='userBlogView.php?ID=".$sql1[0]['ID']."&UID=".$_GET['UID']."'><button>BACK</button></a></td>
-        <td><a href='logout.php?ID=".$_GET['ID']."'><button>LOGOUT</button></a></td>";
+        <td><a href='logout.php?UID=".$_GET['UID']."'><button>LOGOUT</button></a></td>";
     ?>
     </div>
 </div>

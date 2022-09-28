@@ -1,7 +1,7 @@
 <?php
 include 'mainPage.php';
 $obj=new signupLogin($_POST);
-$obj->login();
+$obj->login("USERCREATE");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@ $obj->login();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>USER LOGIN</title>
     <link rel="stylesheet" href="../css/style1.css">
 </head>
 <body>
@@ -32,22 +32,21 @@ $obj->login();
                         <h3>
                             Log in to Uworld
                         </h3>  
-                            <input type="email" name="EMAILLOGIN" placeholder="Email address or Phone Number">
+                            <input type="email" name="EMAIL" placeholder="Email address or Phone Number">
                             <?php
-                                if(!empty($error['EMAILLOGIN']))
+                                if(!empty($error['EMAIL']))
                                 {
-                                    echo $error['EMAILLOGIN'];
+                                    echo $error['EMAIL'];
                                 }
                             ?>
-                            <input type="password" name="PASSWORDLOGIN" placeholder="Password">
+                            <input type="password" name="PASSWORD" placeholder="Password">
                             <?php
-                                if(!empty($error['PASSWORDLOGIN']))
+                                if(!empty($error['PASSWORD']))
                                 {
-                                    echo $error['PASSWORDLOGIN'];
+                                    echo $error['PASSWORD'];
                                 }
                             ?>
-                            <input type="submit" value="login" name="submit1">
-                            <a href="../adminPanel/adminLogin.php">Admin Login?</a>
+                            <input type="submit" value="login" name="submit">
                             <a href="index.php">Sign up</a>  
                         </form>
                     </div>
