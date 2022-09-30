@@ -77,7 +77,6 @@ class admin extends validation
                 {
                     echo "<td><a href=\"blogStatus.php?ID=".$val['ID']."&UID=".$id."\"><button>Deactive</button></a></td>";
                 }  
-                echo "</tr></div>";
             }
             else
             {
@@ -88,13 +87,15 @@ class admin extends validation
                 {
                     if($id==1)
                     {
-                        echo "<td><a href=\"deleteSubAdmin.php?ID=".$val['ID']."&UID=".$id."\"><button>Delete</button></a></td>";
+                        if($val['ID']!=1)
+                        {
+                            echo "<td><a href=\"deleteSubAdmin.php?ID=".$val['ID']."&UID=".$id."\"><button>Delete</button></a></td>";
+                        }
                     }
                 }
                 else
                 {
                     echo "<td><a href=\"deleteUser.php?ID=".$val['ID']."&UID=".$id."\"><button>Delete</button></a></td>";
-
                 }
                 if(isset($val['STATUS']))
                 {
@@ -142,7 +143,7 @@ class admin extends validation
     function status($table,$id)
     {
         $status=db::$dbConn->query("SELECT * FROM $table WHERE ID='$id'");
-        $status=$status->fetchAll();
+        $status=$status->fetchAll(PDO::FETCH_ASSOC);
         foreach($status as $val)
         {
             if($val['ID']==$id)

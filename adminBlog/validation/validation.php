@@ -1,4 +1,4 @@
-
+    
 <?php
 include '../dbConnection/dbConnect.php';
 class validation extends db

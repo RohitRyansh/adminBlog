@@ -1,6 +1,5 @@
 <?php
 include 'mainPage.php';
-// validation::loggedinValidate();
 if(isset($_POST['submit']))
 {
 $obj=new signupLogin($_POST);

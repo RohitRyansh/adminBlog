@@ -1,3 +1,11 @@
+<?php
+include 'mainAdmin.php';
+$obj1=new validation();
+if($obj1->adminLoggedinValidate()==false)
+{
+    header('location:adminLogin.php');
+}
+?>
 <link rel="stylesheet" href="../css/style.css">
 <div class="viewAdmin">
     <h1>
@@ -17,7 +25,6 @@ else
 {
     echo "<table cellspacing=5 border=1px > <tr>  <th>ID</th> <th>NAME</th> <th>EMAIL</th></tr>";
 }
-include 'mainAdmin.php';
 $obj=new admin();
 $obj->view("ADMIN",$id);
 ?>

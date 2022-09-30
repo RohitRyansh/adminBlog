@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="../css/style.css">
-<div class="view">
+<div class="viewDesc">
 <?php
     include 'mainPage.php';
+    $obj1=new validation();
+    if($obj1->userLoggedinValidate()==false)
+    {
+        header('location:Login.php');
+    }
     $obj=new signupLogin();
     $id=$_GET['ID'];
     $sql1=db::$dbConn->query("SELECT ID,TITLE,DESCRIPTION FROM BLOG WHERE ID='$id'");
@@ -9,9 +14,9 @@
     if($sql1)
     {
         echo "<h2>TITLE</h2>";
-        echo "<pre>{$sql1[0]['TITLE']} </pre>";
+        echo "<h3>{$sql1[0]['TITLE']} </h3>";
         echo "<h2>Description</h2>";
-        echo "<pre>{$sql1[0]['DESCRIPTION']}</pre>";
+        echo "<i>{$sql1[0]['DESCRIPTION']}</i>";
     }
 ?>
     <div class="ViewButtons2">

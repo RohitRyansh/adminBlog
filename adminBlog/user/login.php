@@ -1,5 +1,10 @@
 <?php
 include 'mainPage.php';
+$obj1=new validation();
+if($obj1->userLoggedinValidate()==true)
+{
+    header('location:userBlogView.php?UID='.$_SESSION['UID']);
+}
 $obj=new signupLogin($_POST);
 $obj->login("USERCREATE");
 ?>

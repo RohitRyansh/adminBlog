@@ -37,10 +37,6 @@ class signupLogin extends validation
                 }
             }
         }
-        if(isset($_SESSION['loggedin']))
-        {
-            $_SESSION['loggedin']=false;
-        }
     }
     function login($table)
     {
@@ -56,7 +52,6 @@ class signupLogin extends validation
                 $check=$check->fetchAll(PDO::FETCH_ASSOC);
                 if($check)
                 {
-                    $_SESSION['loggedin']=true;
                     $id=$check[0]['ID'];
                     if($table=='USERCREATE')
                     {
@@ -67,16 +62,15 @@ class signupLogin extends validation
                         else
                         {
                             $_SESSION['userLogged']=true;
+                            $_SESSION['UID']=$id;
                             header('location:userBlogView.php?UID='.$id);
                         }
                     }
                     else
-                    {
-                        if($check)
-                        {
-                            $_SESSION['adminLogged']=true;
-                            header('location:../adminPanel/view.php?UID='.$id);
-                        }
+                    { 
+                        $_SESSION['adminLogged']=true;
+                        $_SESSION['UID']=$id;
+                        header('location:../adminPanel/view.php?UID='.$id);
                     }
                 }
                 else
@@ -90,18 +84,15 @@ class signupLogin extends validation
     { 
         $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE ID='$uid' AND BLOGID='$id'");
         $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
-        $count=0;
         if(! $sql1)
         {
             $count=$sql1[0]['LIKES'];
-            $count++;
+            $count=1;
             $check=db::$dbConn->query("INSERT INTO LIKETABLE (ID,BLOGID,LIKES) VALUES('$uid','$id','$count')");
         }
         else
         {
-            $count=$sql1[0]['LIKES'];
-            $count++;
-            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE ID='$uid' AND BLOGID='$id'");
+            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=1 WHERE ID='$uid' AND BLOGID='$id'");
         }
         header("location:blogDescription.php?ID=".$id."&UID=".$uid);
     }
@@ -113,15 +104,7 @@ class signupLogin extends validation
         if($sql1)
         {
             $count=$sql1[0]['LIKES'];
-            $count--;
-            if($count<0)
-            {
-                $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=0 WHERE ID='$uid' AND BLOGID='$id'");
-            }
-            else
-            {
-                $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES='$count' WHERE ID='$uid' AND BLOGID='$id'");
-            }
+            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=0 WHERE ID='$uid' AND BLOGID='$id'");
         }
         header("location:blogDescription.php?ID=".$id."&UID=".$uid);  
     }

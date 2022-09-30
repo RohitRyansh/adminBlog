@@ -1,7 +1,7 @@
 <?php
 class db
 {
-    public static $dbConn,$dbHost,$dbPassword,$dbUser;
+    public static $dbHost,$dbPassword,$dbUser,$dbConn;
     function __construct()
     {
         db::$dbHost="mysql:host=localhost;dbname=project";  

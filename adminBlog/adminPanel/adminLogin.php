@@ -1,5 +1,10 @@
 <?php
 include '../user/mainPage.php';
+$obj1=new validation();
+if($obj1->adminLoggedinValidate()==true)
+{
+    header('location:view.php?UID='.$_SESSION['UID']);
+}
 if(isset($_POST['submit'])){
     $obj=new signupLogin($_POST);
     $obj->login("ADMIN");
@@ -50,7 +55,6 @@ if(isset($_POST['submit'])){
                                 $error=NULL;
                             ?>
                             <input type="submit" value="login" name="submit">
-                            <a href="../user/index.php">not Admin?</a>
                         </form>
                     </div>
                 </div>
