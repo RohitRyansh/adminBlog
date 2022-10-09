@@ -82,29 +82,39 @@ class signupLogin extends validation
     }
     function likeCount($id,$uid)
     { 
-        $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE ID='$uid' AND BLOGID='$id'");
+        $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE userId='$uid' AND BLOGID='$id'");
         $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
         if(! $sql1)
         {
             $count=$sql1[0]['LIKES'];
             $count=1;
-            $check=db::$dbConn->query("INSERT INTO LIKETABLE (ID,BLOGID,LIKES) VALUES('$uid','$id','$count')");
+            $check=db::$dbConn->query("INSERT INTO LIKETABLE (userId,BLOGID,LIKES) VALUES('$uid','$id','$count')");
         }
         else
         {
-            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=1 WHERE ID='$uid' AND BLOGID='$id'");
+            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=1 WHERE userId='$uid' AND BLOGID='$id'");
+            $likeCount=db::$dbConn->query("SELECT count(LIKES)  FROM BLOG INNER JOIN LIKETABLE ON (BLOG.ID=LIKETABLE.BLOGID) WHERE ID='$id' AND LIKES=1");
+            $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC);     
         }
         header("location:blogDescription.php?ID=".$id."&UID=".$uid);
     }
     
     function dislikeCount($id,$uid)
     {
-        $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE ID='$uid' AND BLOGID='$id'");
+        $sql1=db::$dbConn->query("SELECT LIKES FROM LIKETABLE WHERE userId='$uid' AND BLOGID='$id'");
         $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
         if($sql1)
         {
             $count=$sql1[0]['LIKES'];
-            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=0 WHERE ID='$uid' AND BLOGID='$id'");
+            $check=db::$dbConn->exec("UPDATE LIKETABLE SET LIKES=0 WHERE userId='$uid' AND BLOGID='$id'");
+            $likeCount=db::$dbConn->query("SELECT count(LIKES)  FROM BLOG INNER JOIN LIKETABLE ON (BLOG.ID=LIKETABLE.BLOGID) WHERE ID='$id' AND LIKES=0");
+            $likeCount=$likeCount->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else
+        {
+            $count=$sql1[0]['LIKES'];
+            $count--;
+            $check=db::$dbConn->query("INSERT INTO LIKETABLE (userId,BLOGID,LIKES) VALUES('$uid','$id','$count')");
         }
         header("location:blogDescription.php?ID=".$id."&UID=".$uid);  
     }
