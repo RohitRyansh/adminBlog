@@ -109,11 +109,11 @@ class admin extends validation
                     }
                 }
             }
-            echo "<div class=\"blogButtons1\">";
-            echo " <a href='view.php?UID=".$id."'><button>BACK</button></a>";
-            echo " <a href='adminLogout.php?UID=".$id."'><button>LOGOUT</button></a>";
-            echo"</div>";
         }       
+        echo "<div class=\"blogButtons1\">";
+        echo " <a href='view.php?UID=".$id."'><button>BACK</button></a>";
+        echo " <a href='adminLogout.php?UID=".$id."'><button>LOGOUT</button></a>";
+        echo"</div>";
   
     }
     function delete($table,$id)

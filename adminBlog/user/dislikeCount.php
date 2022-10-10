@@ -6,6 +6,5 @@ $obj1=new validation();
         header('location:Login.php');
     }
 $obj=new signupLogin();  
-
 $obj->dislikeCount($_GET['ID'],$_GET['UID']);
 ?>

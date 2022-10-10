@@ -21,8 +21,8 @@
     ?>
     <div class="like"><h3>
         <?php
-            print_r($sql1[0]['count(LIKES)']);  
-        ?>
+            print_r($sql1[0]['count(LIKES)']);
+        ?> 
     </h3>
     </div>
     <div class="ViewButtons2">

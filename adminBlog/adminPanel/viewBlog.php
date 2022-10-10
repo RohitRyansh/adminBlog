@@ -7,7 +7,7 @@ if($obj1->adminLoggedinValidate()==false)
 }
 
 ?><link rel="stylesheet" href="../css/style.css">
-<div class="view">
+<div class="viewAdmin">
     <h2>
         <u>Data Description</u>
     </h2>

@@ -9,7 +9,10 @@ if($obj1->userLoggedinValidate()==false)
 <link rel="stylesheet" href="../css/style.css">
 <div class="viewDesc">
     <h2>
-        <u>TITLES</u>
+        WELCOME
+    </h2>
+    <h2>
+        <u>TITLES</u>  
     </h2>
 <?php
     $obj=new signupLogin();
@@ -19,7 +22,7 @@ if($obj1->userLoggedinValidate()==false)
     {
         if($val)
         {
-        echo "<H4><a href='blogDescription.php?ID=".$val['ID']."&UID=".$_GET['UID']."'>{$val['TITLE']}</H4><br><br>"; 
+        echo "<H4><a href='blogDescription.php?ID=".$val['ID']."&UID=".$_GET['UID']."'>{$val['TITLE']}</H4>"; 
         }    
     }
     if(!$sql1)

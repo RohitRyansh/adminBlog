@@ -28,7 +28,7 @@ class signupLogin extends validation
                 $check=$check->fetchAll(PDO::FETCH_ASSOC);
                 if($check)
                 {
-                    echo "<h3 class=\"message\">This email is alredy used by admin!</h3>";
+                    echo "<h3 class=\"message\">This email is already used by admin!</h3>";
                 }
                 else
                 {
