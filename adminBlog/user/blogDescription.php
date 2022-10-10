@@ -9,7 +9,7 @@
     }
     $obj=new signupLogin();
     $id=$_GET['ID'];
-    $sql1=db::$dbConn->query("SELECT ID,TITLE,DESCRIPTION FROM BLOG WHERE ID='$id'");
+    $sql1=db::$dbConn->query("SELECT *,count(LIKES)  FROM BLOG INNER JOIN LIKETABLE ON (BLOG.ID=LIKETABLE.BLOGID) WHERE ID='$id' AND LIKES=1");
     $sql1=$sql1->fetchAll(PDO::FETCH_ASSOC);
     if($sql1)
     {
@@ -18,7 +18,13 @@
         echo "<h2>Description</h2>";
         echo "<i>{$sql1[0]['DESCRIPTION']}</i>";
     }
-?>
+    ?>
+    <div class="like"><h3>
+        <?php
+            print_r($sql1[0]['count(LIKES)']);  
+        ?>
+    </h3>
+    </div>
     <div class="ViewButtons2">
     <?php 
         echo "
